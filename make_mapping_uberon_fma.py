@@ -10,6 +10,8 @@ data = {
 
 with open('uberon_fma.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
+    next(reader, None) # skip the first line, which is just a header
+
     for row in reader:
         uberon_id = row[0]
         fma_id = row[2]
@@ -23,7 +25,6 @@ with open('uberon_fma.csv', 'rb') as csvfile:
             data['fma_to_uberon'][fma_id].append(uberon_id)
         else:
             data['fma_to_uberon'][fma_id] = [uberon_id]
-            
 
 json_output = json.dumps(data, indent=2);
 
